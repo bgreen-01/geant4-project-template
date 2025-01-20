@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-project(project_template)
+project(geant4-project-template)
 
 find_package(Geant4 REQUIRED ui_all vis_all)
 
@@ -17,4 +17,4 @@ file(COPY ${MACRO_FILES} DESTINATION  ${PROJECT_BINARY_DIR})
 add_executable(template template.cc ${sources} ${headers})
 target_link_libraries(template ${Geant4_LIBRARIES})
 
-add_custom_target(project_template DEPENDS template)
+add_custom_target(geant4-project-template DEPENDS template)
