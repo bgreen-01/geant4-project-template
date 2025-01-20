@@ -1,0 +1,20 @@
+/run/initialize
+
+/gps/ang/type iso
+/gps/pos/type Point
+/gps/pos/centre 0 0 -10 cm
+/gps/source/intensity 1
+
+
+/gps/particle ion
+/gps/ion 55 137 0 0
+
+/process/had/rdm/thresholdForVeryLongDecayTime 1.0e+10 year
+
+#use line below to set file name
+#allows change between runs via macro alleviating need to rename later
+#NOTE: no need to add ".root" as default file type is root. You may be able 
+#to name files with .csv but not sure if this will cause errors due to 
+#Ntuple data structure.
+/analysis/setFileName XYZ
+/run/beamOn 10000

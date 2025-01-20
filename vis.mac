@@ -1,0 +1,18 @@
+/run/initialize
+
+/vis/open OGL
+
+/vis/viewer/set/viewpointVector 1 1 1
+/vis/drawVolume
+/vis/scene/add/axes 0 0 0 1 m
+/vis/viewer/set/autoRefresh true
+/vis/scene/add/trajectories smooth
+/vis/scene/endOfEventAction accumulate
+
+/vis/scene/add/scale 10 cm
+
+#visualisation only displays secondary particles i.e. Parent ID != 0
+#/vis/filtering/trajectories/create/attributeFilter secondaries
+#/vis/filtering/trajectories/secondaries/setAttribute PID
+#/vis/filtering/trajectories/secondaries/addValue 0
+

@@ -1,0 +1,17 @@
+/run/initialize
+
+/gps/particle neutron
+/gps/pos/type Point
+/gps/pos/centre 0 0 -10 cm
+/gps/source/intensity 1
+/gps/direction 0 0 1
+/gps/ene/mono 2 MeV
+
+#use line below to set file name
+#allows change between runs via macro alleviating need to rename later
+#NOTE: no need to add ".root" as default file type is root. You may be able 
+#to name files with .csv but not sure if this will cause errors due to 
+#Ntuple data structure.
+
+/analysis/setFileName XYZ
+/run/beamOn 200
