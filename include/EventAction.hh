@@ -33,7 +33,7 @@
 #include "G4UserEventAction.hh"
 #include "globals.hh"
 
-namespace A93c_neutron_source
+namespace placeholder
 {
 
 class RunAction;

@@ -36,7 +36,7 @@
 
 class G4LogicalVolume;
 
-namespace A93c_neutron_source
+namespace placeholder
 {
 
 class EventAction;

@@ -37,7 +37,7 @@
 
 class G4Run;
 
-namespace A93c_neutron_source
+namespace placeholder
 {
 
 /// Run action class

@@ -33,7 +33,7 @@
 #include "G4UserStackingAction.hh"
 #include "globals.hh"
 
-namespace A93c_neutron_source
+namespace placeholder
 {
 
 /// Stacking action class : manage the newly generated particles
