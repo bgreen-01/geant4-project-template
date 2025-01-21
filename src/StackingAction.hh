@@ -24,46 +24,35 @@
 // ********************************************************************
 //
 //
-/// \file B3/B3a/src/StackingAction.cc
-/// \brief Implementation of the B3::StackingAction class
+/// \file B3/B3a/include/StackingAction.hh
+/// \brief Definition of the B3::StackingAction class
 
-#include "StackingAction.hh"
+#ifndef StackingAction_h
+#define StackingAction_h 1
 
-#include "G4Track.hh"
-#include "G4Neutron.hh"
-#include "G4Gamma.hh"
-#include "G4Electron.hh"
-#include "G4Alpha.hh"
+#include "G4UserStackingAction.hh"
+#include "globals.hh"
 
 namespace placeholder
 {
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+/// Stacking action class : manage the newly generated particles
+///
+/// One wishes do not track secondary neutrino.Therefore one kills it
+/// immediately, before created particles will  put in a stack.
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* track)
+class StackingAction : public G4UserStackingAction
 {
-	
-	G4double mass = track->GetDefinition()->GetPDGMass();
-		
-    ////keep Cf-252, Cm-248, gammas and neutrons 
-    if (track->GetDefinition() == G4Gamma::Gamma()) return fUrgent;
-    if (track->GetDefinition() == G4Neutron::Neutron()) return fUrgent;
-    
-	
-	////mass is in amu (atomic number*931.49 MeV)
-	if (mass >= 230000) return fUrgent; //retain cf-252 but kill decay prods
-	//if (125000 <= mass <= 130000) return fUrgent; //retain cs-137 atoms
-	
-	////optional Alpha saving if potential for a,n production 
-	if (track->GetDefinition() == G4Alpha::Alpha()) return fUrgent;
-		
-	
-	//kill secondaries 
-    else return fKill;
+  public:
+    StackingAction() = default;
+    ~StackingAction() override = default;
+
+    G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track*) override;
+};
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-}
+#endif
 

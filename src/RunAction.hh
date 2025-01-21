@@ -24,46 +24,57 @@
 // ********************************************************************
 //
 //
-/// \file B3/B3a/src/StackingAction.cc
-/// \brief Implementation of the B3::StackingAction class
+/// \file B1/include/RunAction.hh
+/// \brief Definition of the B1::RunAction class
 
-#include "StackingAction.hh"
+#ifndef RunAction_h
+#define RunAction_h 1
 
-#include "G4Track.hh"
-#include "G4Neutron.hh"
-#include "G4Gamma.hh"
-#include "G4Electron.hh"
-#include "G4Alpha.hh"
+#include "G4UserRunAction.hh"
+#include "G4Run.hh"
+#include "G4Accumulable.hh"
+#include "globals.hh"
+
+class G4Run;
 
 namespace placeholder
 {
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+/// Run action class
+///
+/// In EndOfRunAction(), it calculates the dose in the selected volume
+/// from the energy deposit accumulated via stepping and event actions.
+/// The computed dose is then printed on the screen.
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* track)
+class RunAction : public G4UserRunAction
 {
-	
-	G4double mass = track->GetDefinition()->GetPDGMass();
-		
-    ////keep Cf-252, Cm-248, gammas and neutrons 
-    if (track->GetDefinition() == G4Gamma::Gamma()) return fUrgent;
-    if (track->GetDefinition() == G4Neutron::Neutron()) return fUrgent;
+  public:
+    RunAction();
+    ~RunAction();
+
+    void BeginOfRunAction(const G4Run*) override;
+    void   EndOfRunAction(const G4Run*) override;
+
+    void AddEdep (G4double edep=0.);
+    void AddNEdep (G4double Nedep=0.);
+    void AddXlocN (G4double xlocN=0.);
+    void AddYlocN (G4double ylocN=0.);
+    void AddXlocG (G4double xlocG=0.);
+    void AddYlocG (G4double ylocG=0.);
     
 	
-	////mass is in amu (atomic number*931.49 MeV)
-	if (mass >= 230000) return fUrgent; //retain cf-252 but kill decay prods
-	//if (125000 <= mass <= 130000) return fUrgent; //retain cs-137 atoms
 	
-	////optional Alpha saving if potential for a,n production 
-	if (track->GetDefinition() == G4Alpha::Alpha()) return fUrgent;
-		
-	
-	//kill secondaries 
-    else return fKill;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+  private:
+    G4Accumulable<G4double> fEdep = 0.;
+    G4Accumulable<G4double> fNEdep = 0.;
+    G4Accumulable<G4double> fXlocN = 0.;
+    G4Accumulable<G4double> fYlocN = 0.;
+    G4Accumulable<G4double> fXlocG = 0.;
+    G4Accumulable<G4double> fYlocG = 0.;
+    
+};
 
 }
+
+#endif
 

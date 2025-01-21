@@ -41,7 +41,7 @@
 #include "G4TrackStatus.hh"
 #include "G4Track.hh"
 
-namespace A93c_neutron_source
+namespace placeholder
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

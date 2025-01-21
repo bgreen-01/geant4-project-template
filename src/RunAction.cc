@@ -42,7 +42,7 @@
 #include "G4UnitsTable.hh"
 #include "G4SystemOfUnits.hh"
 
-namespace A93c_neutron_source
+namespace placeholder
 {
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

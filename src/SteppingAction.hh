@@ -24,46 +24,41 @@
 // ********************************************************************
 //
 //
-/// \file B3/B3a/src/StackingAction.cc
-/// \brief Implementation of the B3::StackingAction class
+/// \file B1/include/SteppingAction.hh
+/// \brief Definition of the B1::SteppingAction class
 
-#include "StackingAction.hh"
+#ifndef SteppingAction_h
+#define SteppingAction_h 1
 
-#include "G4Track.hh"
-#include "G4Neutron.hh"
-#include "G4Gamma.hh"
-#include "G4Electron.hh"
-#include "G4Alpha.hh"
+#include "G4UserSteppingAction.hh"
+#include "globals.hh"
+#include "G4Step.hh"
+
+class G4LogicalVolume;
 
 namespace placeholder
 {
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+class EventAction;
 
-G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack(const G4Track* track)
+/// Stepping action class
+
+class SteppingAction : public G4UserSteppingAction
 {
-	
-	G4double mass = track->GetDefinition()->GetPDGMass();
-		
-    ////keep Cf-252, Cm-248, gammas and neutrons 
-    if (track->GetDefinition() == G4Gamma::Gamma()) return fUrgent;
-    if (track->GetDefinition() == G4Neutron::Neutron()) return fUrgent;
-    
-	
-	////mass is in amu (atomic number*931.49 MeV)
-	if (mass >= 230000) return fUrgent; //retain cf-252 but kill decay prods
-	//if (125000 <= mass <= 130000) return fUrgent; //retain cs-137 atoms
-	
-	////optional Alpha saving if potential for a,n production 
-	if (track->GetDefinition() == G4Alpha::Alpha()) return fUrgent;
-		
-	
-	//kill secondaries 
-    else return fKill;
+  public:
+    SteppingAction(EventAction* eventAction);
+    ~SteppingAction() override = default;
+
+    // method from the base class
+    void UserSteppingAction(const G4Step*) override;
+
+  private:
+    EventAction* fEventAction = nullptr;
+    G4LogicalVolume* fScoringVolume = nullptr;
+};
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-}
-
+#endif
