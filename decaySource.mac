@@ -9,8 +9,6 @@
 /gps/particle ion
 /gps/ion 55 137 0 0
 
-/gps/ene/mono 0 keV
-
 /process/had/rdm/thresholdForVeryLongDecayTime 1.0e+10 year
 
 #use line below to set file name

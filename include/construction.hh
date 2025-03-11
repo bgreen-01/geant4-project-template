@@ -19,8 +19,6 @@
 #include "G4SystemOfUnits.hh"
 #include "G4GenericMessenger.hh"
 
-#include "math.h"
-
 #include "detector.hh"
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction
@@ -61,14 +59,12 @@ private:
 	G4double fTargetDensity = 10.;
 	G4double fTargetThickness = 5.;
 	
-	G4LogicalVolume *fScoringVolume, *logicWorld, *logicFuel, *logicDetector, *logicClad, *logicCap;
-	G4VSolid *solidWorld, *solidFuel, *solidDetector, *solidClad, *solidCap;
-	G4VPhysicalVolume *physWorld, *physDetector, *physFuel, *physClad, *physTCap, *physBCap;
+	G4LogicalVolume *fScoringVolume, *logicWorld, *logicTarget, *logicDetector;
+	G4VSolid *solidWorld, *solidTarget, *solidDetector;
+	G4VPhysicalVolume *physWorld, *physTarget, *physDetector;
 	
-	G4Isotope *U235, *U238, *U236, *Pu239, *Pu240, *Pu241, *U234, *Np237, *Pu242, *Pu238, *Am241, *Np239, *Am243, *Cm242, *Cm244, *U237;
-	G4Element *enrichedU, *spentU, *spentPu, *spentNp, *spentAm, *spentCm;
 	
-	G4Material *H2O, *air, *Al2O3, *SS2520, *spentFuel;
+	G4Material *H2O, *air;
 	
 	void DefineMaterials();
 };
